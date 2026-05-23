@@ -1,26 +1,213 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Theme 1: Premium Minimalist Stone Tech Light Theme */
+  --background: #fafaf9; /* Stone 50 - clean warm gray paper background */
+  --foreground: #1c1917; /* Stone 900 - high contrast deep warm charcoal */
+  
+  --card: #fafaf9; /* Stone 50 - pristine stone cards, no pure white */
+  --card-foreground: #1c1917;
+  
+  --popover: #fafaf9;
+  --popover-foreground: #1c1917;
+  
+  --primary: #44403c; /* Stone 700 - elegant graphite stone primary */
+  --primary-foreground: #fafaf9;
+  
+  --secondary: #78716c; /* Stone 500 - sleek slate-grey secondary */
+  --secondary-foreground: #fafaf9;
+  
+  --muted: #f5f5f4; /* Stone 100 - clean warm control backgrounds */
+  --muted-foreground: #78716c; /* Stone 500 - readable sandstone */
+  
+  --accent: rgba(68, 64, 60, 0.08); /* Stone 700 subtle accent glow */
+  --accent-foreground: #44403c;
+  
+  --destructive: #dc2626;
+  
+  --border: #e7e5e4; /* Stone 200 - soft premium border */
+  --input: #f5f5f4; /* Stone 100 - clean input background */
+  --ring: #44403c; /* Stone 700 */
+  
+  /* Less Rounded Cards: Very sharp 2px corners for precision engineering vibe */
+  --radius: 2px;
+}
+ 
+.dark {
+  /* Theme 2: Premium Soft Warm Charcoal & Amber Theme (High Contrast & Cozy Warmth) */
+  --background: #0c0b0a; /* Deeper warm ebony/coal dark */
+  --foreground: #f5f4f0; /* Crisp soft cream white */
+  
+  --card: #1d1b19; /* Lighter warm stone charcoal card for distinct separation */
+  --card-foreground: #f5f4f0;
+  
+  --popover: #1d1b19;
+  --popover-foreground: #f5f4f0;
+  
+  --primary: #f59e0b; /* Bright golden amber for maximum readability */
+  --primary-foreground: #0c0b0a;
+  
+  --secondary: #f97316; /* Warm orange */
+  --secondary-foreground: #ffffff;
+  
+  --muted: #272522; /* Warm stone grey for elements */
+  --muted-foreground: #a8a29e; /* Soft contrast sandstone */
+  
+  --accent: rgba(245, 158, 11, 0.12); /* Subtle gold amber glow */
+  --accent-foreground: #f59e0b;
+  
+  --destructive: #ef4444;
+  
+  --border: rgba(120, 113, 108, 0.32); /* Higher contrast stone grey border */
+  --input: rgba(120, 113, 108, 0.2);
+  --ring: #f59e0b;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    background-attachment: fixed;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -10;
+    
+    /* Elegant soft stone light gradient body glow */
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(120, 113, 108, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(168, 162, 158, 0.02) 0%, transparent 40%);
+  }
+
+  .dark body::after {
+    /* Warm dark mode background glow */
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(249, 115, 22, 0.02) 0%, transparent 40%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 113, 108, 0.2);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Premium Warm Glassmorphism & Paper Utilities */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.dark .glass {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.glass-accent {
+  background: var(--accent);
+  border: 1px solid rgba(202, 138, 4, 0.12);
+}
+
+.dark .glass-accent {
+  border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+.terminal-glow {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.dark .terminal-glow {
+  box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.02), 0 0 10px rgba(245, 158, 11, 0.01);
+}
+
+.pulse-glow {
+  animation: pulse-glow-anim 2s infinite alternate;
+}
+
+@keyframes pulse-glow-anim {
+  0% {
+    box-shadow: 0 0 5px rgba(120, 113, 108, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(120, 113, 108, 0.25);
+  }
+}
+
+.dark .pulse-glow {
+  animation: dark-pulse-glow-anim 2s infinite alternate;
+}
+
+@keyframes dark-pulse-glow-anim {
+  0% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  }
+}
+
+/* Elegant minimalist pattern background */
+.dot-matrix {
+  background-image: radial-gradient(rgba(120, 113, 108, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.dark .dot-matrix {
+  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+  background-size: 100% 2px, 3px 100%;
 }
