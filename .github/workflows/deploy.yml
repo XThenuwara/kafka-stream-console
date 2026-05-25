@@ -33,6 +33,7 @@ jobs:
           mv src/app/api src/api-temp
           npm run build
           mv src/api-temp src/app/api
+          touch out/.nojekyll
 
       - name: Deploy Static Web Assets to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

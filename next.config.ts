@@ -6,7 +6,7 @@ const isGitHubPages = process.env.NEXT_EXPORT === 'true';
 const nextConfig: NextConfig = {
   // Support dynamic static exports for GitHub Pages & ElectroBun
   ...(isStaticExport ? { output: 'export', images: { unoptimized: true } } : {}),
-  ...(isGitHubPages ? { basePath: '/kafka-stream-console' } : {}),
+  ...(isGitHubPages ? { basePath: '/kafka-stream-console', trailingSlash: true } : {}),
 };
 
 export default nextConfig;
