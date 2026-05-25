@@ -66,9 +66,14 @@ interface StreamedMessage {
   timestampDate: Date;
 }
 
-const getApiBaseUrl = () => {
-  if (typeof window !== 'undefined' && (!!(window as any).Electrobun || window.location.protocol === 'views:')) {
-    return 'http://localhost:3005';
+const getApiBaseUrl = (customProxyUrl?: string) => {
+  if (customProxyUrl && customProxyUrl.trim()) {
+    return customProxyUrl.trim();
+  }
+  if (typeof window !== 'undefined') {
+    if ((window as any).Electrobun || window.location.protocol === 'views:') {
+      return 'http://localhost:3005';
+    }
   }
   return process.env.NEXT_PUBLIC_API_URL || '';
 };
@@ -518,6 +523,7 @@ export default function KafkaStreamUI() {
   const [connSASLUser, setConnSASLUser] = useState<string>('');
   const [connSASLPass, setConnSASLPass] = useState<string>('');
   const [connSASLPassShow, setConnSASLPassShow] = useState<boolean>(false);
+  const [connProxyUrl, setConnProxyUrl] = useState<string>('');
 
   // Set master password lock state
   const [newMasterPassword, setNewMasterPassword] = useState<string>('');
@@ -704,6 +710,7 @@ export default function KafkaStreamUI() {
     setConnSASLUser('');
     setConnSASLPass('');
     setConnSASLMech('plain');
+    setConnProxyUrl('');
     setLastConnectionTest(null);
     setIsEditingConn(true);
     setIsMobileSidebarOpen(false);
@@ -716,6 +723,7 @@ export default function KafkaStreamUI() {
     setConnClientId(conn.clientId || 'kafka-stream-ui');
     setConnSSL(conn.ssl);
     setConnSASL(!!conn.sasl);
+    setConnProxyUrl(conn.proxyUrl || '');
     if (conn.sasl) {
       setConnSASLMech(conn.sasl.mechanism);
       setConnSASLUser(conn.sasl.username);
@@ -744,7 +752,8 @@ export default function KafkaStreamUI() {
         mechanism: connSASLMech,
         username: connSASLUser,
         password: connSASLPass
-      } : undefined
+      } : undefined,
+      proxyUrl: connProxyUrl || undefined
     };
 
     let nextConnections = [...connections];
@@ -815,7 +824,7 @@ export default function KafkaStreamUI() {
     };
 
     try {
-      const res = await fetch(`${getApiBaseUrl()}/api/kafka/test-connection`, {
+      const res = await fetch(`${getApiBaseUrl(connProxyUrl)}/api/kafka/test-connection`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(testPayload),
@@ -847,7 +856,7 @@ export default function KafkaStreamUI() {
     if (!activeConnection) return;
     setTopicsLoading(true);
     try {
-      const res = await fetch(`${getApiBaseUrl()}/api/kafka/topics`, {
+      const res = await fetch(`${getApiBaseUrl(activeConnection?.proxyUrl)}/api/kafka/topics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(activeConnection),
@@ -891,7 +900,7 @@ export default function KafkaStreamUI() {
     const encodedConfig = btoa(JSON.stringify(activeConnection));
     const topicsParam = selectedTopics.join(',');
     const useFromBeginning = overrideFromBeginning !== undefined ? overrideFromBeginning : fromBeginning;
-    const url = `${getApiBaseUrl()}/api/kafka/stream?config=${encodeURIComponent(encodedConfig)}&topics=${encodeURIComponent(topicsParam)}&fromBeginning=${useFromBeginning}`;
+    const url = `${getApiBaseUrl(activeConnection?.proxyUrl)}/api/kafka/stream?config=${encodeURIComponent(encodedConfig)}&topics=${encodeURIComponent(topicsParam)}&fromBeginning=${useFromBeginning}`;
 
     const eventSource = new EventSource(url);
     eventSourceRef.current = eventSource;
@@ -2264,6 +2273,20 @@ export default function KafkaStreamUI() {
                   onChange={(e) => setConnClientId(e.target.value)}
                   className="w-full bg-muted/40 border border-border rounded px-3 py-2 text-xs text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-primary/50"
                 />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted-foreground">API PROXY GATEWAY URL (OPTIONAL)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. http://localhost:3005"
+                  value={connProxyUrl}
+                  onChange={(e) => setConnProxyUrl(e.target.value)}
+                  className="w-full bg-muted/40 border border-border rounded px-3 py-2 text-xs text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-primary/50"
+                />
+                <span className="text-[9px] text-muted-foreground/60 block leading-tight">
+                  Specify if you host a custom API proxy or run a standalone console proxy. Defaults to local dev routes or localhost:3005.
+                </span>
               </div>
 
               <div className="flex items-center space-x-6 py-1">

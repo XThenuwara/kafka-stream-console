@@ -12,6 +12,7 @@ export interface KafkaConnection {
     username: string;
     password: string;
   };
+  proxyUrl?: string;
 }
 
 const STORAGE_KEY = 'kafka_connections_v1';

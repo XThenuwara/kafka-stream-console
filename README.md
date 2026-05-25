@@ -2,9 +2,11 @@
 
 Real-time Kafka log observability and distributed transaction tracing.
 
-## Access App
+> [!IMPORTANT]
+> Due to browser sandbox limitations restricting raw TCP socket connections, this application **only works fully as a Desktop App**.
 
-👉 **[xthenuwara.github.io/kafka-stream-console](https://xthenuwara.github.io/kafka-stream-console)**
+## Download Desktop App
+👉 **[Download Latest Release](https://github.com/xthenuwara/kafka-stream-console/releases)**
 
-Connect directly to your local environments (`localhost:9092`) by default or remote staging/production brokers. All credentials are encrypted with PBKDF2/AES-GCM-256 and stored strictly client-side in your browser.  
-**Use it on your own risk.**
+## Web Version
+👉 [xthenuwara.github.io/kafka-stream-console](https://xthenuwara.github.io/kafka-stream-console) (Requires running a local proxy server)

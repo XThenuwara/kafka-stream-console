@@ -11,7 +11,9 @@
     "build:web": "next build",
     "start:web": "next start -p 5002",
     "dev:desktop": "concurrently \"next dev -p 5002\" \"bunx electrobun start --dev\"",
-    "build:desktop": "mv src/app/api src/api_backup; cross-env BUILD_TARGET=desktop next build; mv src/api_backup src/app/api; bunx electrobun build"
+    "build:desktop": "mv src/app/api src/api_backup; cross-env BUILD_TARGET=desktop next build; mv src/api_backup src/app/api; bunx electrobun build",
+    "build:static": "mv src/app/api src/api-temp; cross-env NEXT_EXPORT=true next build; mv src/api-temp src/app/api",
+    "serve:static": "ln -sfh . out/kafka-stream-console 2>/dev/null || true; npx serve -p 5002 out"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
