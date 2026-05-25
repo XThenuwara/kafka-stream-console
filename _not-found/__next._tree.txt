@@ -1,3 +1,3 @@
 :HL["/kafka-stream-console/_next/static/chunks/0ybde9ltz0ihq.css","style"]
 :HL["/kafka-stream-console/_next/static/chunks/0kot6d.djy-oy.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"01y6IfFbk9jTDBD2hww3Q"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"B96h9fr08XlswA_e7ppTZ"}

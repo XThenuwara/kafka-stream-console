@@ -2,4 +2,4 @@
 2:I[39756,["/kafka-stream-console/_next/static/chunks/0f9r7-rldt31h.js","/kafka-stream-console/_next/static/chunks/0dbhjjzl8qfwv.js"],"default"]
 3:I[37457,["/kafka-stream-console/_next/static/chunks/0f9r7-rldt31h.js","/kafka-stream-console/_next/static/chunks/0dbhjjzl8qfwv.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"01y6IfFbk9jTDBD2hww3Q"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"B96h9fr08XlswA_e7ppTZ"}
