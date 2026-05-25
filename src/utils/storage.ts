@@ -1,4 +1,5 @@
 import { encryptText, decryptText, EncryptedPayload } from './crypto';
+import { isDesktopApp } from './env';
 
 export interface KafkaConnection {
   id: string;
@@ -20,6 +21,7 @@ const STORAGE_KEY = 'kafka_connections_v1';
  */
 export function isPasswordRequired(): boolean {
   if (typeof window === 'undefined') return false;
+  if (isDesktopApp()) return false;
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return false;
   try {

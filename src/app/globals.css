@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .github-dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -94,6 +94,39 @@
   --ring: #f59e0b;
 }
 
+.github-dark {
+  /* Theme 3: Minimalist Clean GitHub Dark Theme (Official GitHub Colors & Precise Radius) */
+  --background: #0d1117; /* GitHub Dark Base Background */
+  --foreground: #c9d1d9; /* GitHub Dark Base Text */
+  
+  --card: #161b22; /* GitHub Dark Card Background */
+  --card-foreground: #c9d1d9;
+  
+  --popover: #161b22;
+  --popover-foreground: #c9d1d9;
+  
+  --primary: #58a6ff; /* GitHub Blue Link Accent */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #21262d; /* GitHub Button/Control Gray */
+  --secondary-foreground: #c9d1d9;
+  
+  --muted: #21262d; 
+  --muted-foreground: #8b949e; /* GitHub Gray Text */
+  
+  --accent: rgba(56, 139, 253, 0.15); 
+  --accent-foreground: #58a6ff;
+  
+  --destructive: #f85149; /* GitHub Danger Red */
+  
+  --border: #30363d; /* GitHub Border color */
+  --input: #0d1117;
+  --ring: #388bfd;
+  
+  /* Strict GitHub Rounded Corners */
+  --radius: 5px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -123,6 +156,13 @@
     background-image: 
       radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.03) 0%, transparent 40%),
       radial-gradient(circle at 90% 80%, rgba(249, 115, 22, 0.02) 0%, transparent 40%);
+  }
+
+  .github-dark body::after {
+    /* Cool blue dark mode background glow */
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(88, 166, 255, 0.025) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(120, 113, 108, 0.01) 0%, transparent 40%);
   }
 }
 
@@ -210,4 +250,177 @@
 .dark .dot-matrix {
   background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
   background-size: 100% 2px, 3px 100%;
+}
+
+.github-dark .dot-matrix {
+  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(59, 130, 246, 0.01), rgba(120, 113, 108, 0.01), rgba(59, 130, 246, 0.01));
+  background-size: 100% 2px, 3px 100%;
+}
+
+.github-dark .glass {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.github-dark .glass-accent {
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.github-dark .terminal-glow {
+  box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.02), 0 0 10px rgba(59, 130, 246, 0.01);
+}
+
+.github-dark .pulse-glow {
+  animation: github-pulse-glow-anim 2s infinite alternate;
+}
+
+@keyframes github-pulse-glow-anim {
+  0% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  }
+}
+
+/* ==========================================================================
+   OFFICIAL GITHUB THEME OVERRIDES (COMPACT SPACING, BUTTONS, FONTS, CORNERS)
+   ========================================================================= */
+
+/* Typography Overrides: Enforce System Sans-Serif globally for all UI controls */
+.github-dark,
+.github-dark button,
+.github-dark input,
+.github-dark select,
+.github-dark label,
+.github-dark h1,
+.github-dark h2,
+.github-dark h3,
+.github-dark p,
+.github-dark span:not(.font-mono-always):not([class*="PremiumJsonViewer"]):not(.terminal-glow *):not(.trace-font-mono) {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
+}
+
+/* Ensure code blocks, JSON trees, and terminal feeds remain strictly monospaced */
+.github-dark pre,
+.github-dark code,
+.github-dark .font-mono-always,
+.github-dark [class*="PremiumJsonViewer"] *,
+.github-dark [class*="JsonNode"] *,
+.github-dark .terminal-glow pre,
+.github-dark .terminal-glow code,
+.github-dark .terminal-glow span,
+.github-dark .terminal-glow div,
+.github-dark .trace-flow-modal pre,
+.github-dark .trace-flow-modal code,
+.github-dark .trace-font-mono,
+.github-dark .timeline-timestamp,
+.github-dark .timeline-delay,
+.github-dark .timestamp-badge {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+/* GitHub Border Radius & Layout Borders */
+.github-dark button,
+.github-dark input,
+.github-dark select,
+.github-dark textarea {
+  border-radius: 6px !important;
+}
+
+.github-dark header,
+.github-dark aside,
+.github-dark main,
+.github-dark .glass {
+  border-color: #30363d !important;
+}
+
+.github-dark .border-border,
+.github-dark .border {
+  border-color: #30363d !important;
+}
+
+/* GitHub Compact Button Aesthetics: Keep square icons unchanged, modify only large text buttons */
+.github-dark button.px-3,
+.github-dark button.px-4,
+.github-dark button.py-2\.5,
+.github-dark button.py-2 {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04) !important;
+}
+
+/* Secondary Button Aesthetics */
+.github-dark button.bg-muted\/40,
+.github-dark button[class*="bg-muted"],
+.github-dark button.bg-card,
+.github-dark aside button {
+  background-color: #21262d !important;
+  border: 1px solid #30363d !important;
+  color: #c9d1d9 !important;
+  transition: background-color 0.2s, border-color 0.2s !important;
+}
+
+.github-dark button.bg-muted\/40:hover,
+.github-dark button[class*="bg-muted"]:hover,
+.github-dark button.bg-card:hover,
+.github-dark aside button:hover {
+  background-color: #30363d !important;
+  border-color: #8b949e !important;
+  color: #f0f6fc !important;
+}
+
+/* Primary Action Green Button Aesthetics (play stream, add connection, settings save) */
+.github-dark button.bg-primary,
+.github-dark button[class*="bg-primary"],
+.github-dark button.text-primary-foreground {
+  background-color: #238636 !important;
+  border: 1px solid rgba(240, 246, 252, 0.1) !important;
+  color: #ffffff !important;
+  transition: background-color 0.2s !important;
+}
+
+.github-dark button.bg-primary:hover,
+.github-dark button[class*="bg-primary"]:hover,
+.github-dark button.text-primary-foreground:hover {
+  background-color: #2ea44f !important;
+}
+
+/* GitHub Danger Destructive Buttons */
+.github-dark button.bg-destructive,
+.github-dark button[class*="text-destructive"],
+.github-dark button.text-destructive {
+  background-color: #21262d !important;
+  border: 1px solid #30363d !important;
+  color: #f85149 !important;
+  transition: background-color 0.2s, color 0.2s !important;
+}
+
+.github-dark button.bg-destructive:hover,
+.github-dark button[class*="text-destructive"]:hover,
+.github-dark button.text-destructive:hover {
+  background-color: #da3633 !important;
+  border-color: #f85149 !important;
+  color: #ffffff !important;
+}
+
+/* GitHub Input Fields */
+.github-dark input,
+.github-dark select,
+.github-dark textarea {
+  background-color: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  color: #c9d1d9 !important;
+  font-size: 13px !important;
+  padding: 6px 12px !important;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,0.05) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.github-dark input:focus,
+.github-dark select:focus,
+.github-dark textarea:focus {
+  border-color: #58a6ff !important;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3) !important;
+  outline: none !important;
 }
